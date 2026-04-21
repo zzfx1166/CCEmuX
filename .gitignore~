@@ -14,7 +14,6 @@ local.properties
 .loadpath
 .recommenders
 ccwasm
-.claude
 
 # Eclipse Core
 .project

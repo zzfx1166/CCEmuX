@@ -30,7 +30,7 @@ allprojects {
 	plugins.withType<JavaBasePlugin> {
 		java {
 			toolchain {
-				languageVersion = JavaLanguageVersion.of(17)
+				languageVersion = JavaLanguageVersion.of(21)
 			}
 		}
 
@@ -57,6 +57,11 @@ dependencies {
 	compileOnly("com.google.auto.service:auto-service:1.0.1")
 	annotationProcessor("com.google.auto.service:auto-service:1.0.1")
 
+		// CCWASM dependencies
+		implementation("com.dylibso.chicory:runtime:1.5.3")
+		implementation("com.dylibso.chicory:compiler:1.5.3")
+		implementation("com.dylibso.chicory:wasi:1.5.3")
+
 	testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.1")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.1")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.1")
@@ -82,6 +87,8 @@ tasks.jar {
 			"Implementation-Version" to project.version,
 		)
 	}
+
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 tasks.shadowJar {
