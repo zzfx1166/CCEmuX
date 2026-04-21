@@ -13,13 +13,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
-// import com.google.auto.service.AutoService;
+import com.google.auto.service.AutoService;
 import dan200.computercraft.api.filesystem.Mount;
 import dan200.computercraft.core.filesystem.FileMount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// @AutoService(Plugin.class)
+@AutoService(Plugin.class)
 public class CCWASMPlugin extends Plugin {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CCWASMPlugin.class);
