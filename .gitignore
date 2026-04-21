@@ -13,7 +13,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-ccwasm
+# Original CCWASM directory (not the integrated source code)
+/ccwasm/
 .claude
 
 # Eclipse Core

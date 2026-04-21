@@ -1,0 +1,129 @@
+package com.iung.ccwasm.wasm_api;
+
+import dan200.computercraft.api.lua.LuaValues;
+
+public class IOValue {
+    public static final int I32 = 1;
+    public static final int I64 = 2;
+    public static final int String = 3;
+    public static final int F32 = 4;
+    public static final int F64 = 5;
+    public static final int Type = 6;
+    public static final int Table = 7;
+    public static final int Nil = 8;
+    public static final int Bool = 9;
+
+    public int type;
+    public Object data;
+
+    public IOValue(int type, Object data) {
+        this.data = data;
+        this.type = type;
+    }
+
+    @Override
+    public java.lang.String toString() {
+        String typeName;
+        switch (type) {
+            case I32: typeName = "I32"; break;
+            case I64: typeName = "I64"; break;
+            case String: typeName = "String"; break;
+            case F32: typeName = "F32"; break;
+            case F64: typeName = "F64"; break;
+            case Type: typeName = "Type"; break;
+            case Table: typeName = "Table"; break;
+            case Nil: typeName = "Nil"; break;
+            case Bool: typeName = "Bool"; break;
+            default: typeName = "Unknown(" + type + ")";
+        }
+
+        String valueStr;
+        if (data == null) {
+            valueStr = "null";
+        } else if (type == String && data instanceof byte[]) {
+            // Handle byte[] specially for String type (as per current 'of(byte[])' logic)
+            valueStr = java.util.Arrays.toString((byte[]) data);
+        } else {
+            valueStr = data.toString();
+        }
+
+        return "[" + typeName + "]：" + valueStr;
+    }
+
+    public String asString() {
+        return (java.lang.String) data;
+    }
+
+    public int asInt() {
+        return (int) data;
+    }
+
+    public long asLong() {
+        return (long) data;
+    }
+
+    public float asFloat() {
+        return (float) data;
+    }
+
+    public double asDouble() {
+        return (double) data;
+    }
+
+    public Object asObject() {
+        return data;
+    }
+
+    public static IOValue of(int data) {
+        return new IOValue(I32, data);
+    }
+
+    public static IOValue of(long data) {
+        return new IOValue(I64, data);
+    }
+
+    public static IOValue of(String data) {
+        return new IOValue(String, data);
+    }
+    public static IOValue of(byte[] data) {
+        return new IOValue(String, data);
+    }
+    public static IOValue of(float data) {
+        return new IOValue(F32, data);
+    }
+
+    public static IOValue of(double data) {
+        return new IOValue(F64, data);
+    }
+
+    public static IOValue type(int type) {
+        return new IOValue(Type, type);
+    }
+
+    public static IOValue of_obj(Object data) {
+        if (data instanceof Integer) {
+            return IOValue.of((int) data);
+        }
+        if (data instanceof Long) {
+            return IOValue.of((long) data);
+        }
+        if (data instanceof Float) {
+            return IOValue.of((float) data);
+        }
+        if (data instanceof Double) {
+            return IOValue.of((double) data);
+        }
+        if (data instanceof String) {
+            return IOValue.of((String) data);
+        }
+        if (data instanceof byte[]) {
+            return IOValue.of((byte[]) data);
+        }
+        if (data instanceof Boolean) {
+            return new IOValue(Bool, data);
+        }
+
+        return new IOValue(Table, data);
+    }
+
+}
